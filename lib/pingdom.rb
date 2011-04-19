@@ -1,6 +1,4 @@
 $: << File.dirname(__FILE__)
-require 'rubygems'
-gem 'soap4r'
 require 'PingdomAPIDriver'
 require 'datetime_ext'
 
@@ -172,23 +170,23 @@ class Pingdom
 
 	def check_result(result)
 		case result.status
-		when 0: return
-		when 1: raise PingdomException.new(         "Something strange happened (1)")
-		when 2: raise PingdomException.new(         "Something strange happened (2)")
-		when 3: raise ArgumentException.new(        "One or more arguments was invalid")
-		when 4: raise InternalErrorException.new(   "Pingdom reported an internal error")
-		when 5: raise IdenficationException.new(    "Wrong Identification: your API key is wrong")
-		when 6: raise AuthorizationException.new(   "Wrong Authorization: you don't have the privileges to call this function")
-		when 7: raise AuthenticationException.new(  "Wrong Authentication: your username or password is wrong.")
+		when 0 then return
+		when 1 then raise PingdomException.new(         "Something strange happened (1)")
+		when 2 then raise PingdomException.new(         "Something strange happened (2)")
+		when 3 then raise ArgumentException.new(        "One or more arguments was invalid")
+		when 4 then raise InternalErrorException.new(   "Pingdom reported an internal error")
+		when 5 then raise IdenficationException.new(    "Wrong Identification: your API key is wrong")
+		when 6 then raise AuthorizationException.new(   "Wrong Authorization: you don't have the privileges to call this function")
+		when 7 then raise AuthenticationException.new(  "Wrong Authentication: your username or password is wrong.")
 		end
 	end
 
 	def date(obj)
     case obj
-    when DateTime: return obj
-    when String:   return DateTime.parse(obj)
-    when Time:     return DateTime.new(obj.year, obj.month, obj.day, obj.hour, obj.min, obj.sec + Rational(obj.usec, 10**6), Rational(obj.utc_offset, 60 * 60 * 24))
-    when :now:     return DateTime.now
+    when DateTime then return obj
+    when String   then return DateTime.parse(obj)
+    when Time     then return DateTime.new(obj.year, obj.month, obj.day, obj.hour, obj.min, obj.sec + Rational(obj.usec, 10**6), Rational(obj.utc_offset, 60 * 60 * 24))
+    when :now     then return DateTime.now
     else           raise  "Not sure how to turn #{obj} into a DateTime."
     end
 	end
